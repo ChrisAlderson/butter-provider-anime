@@ -1,0 +1,22 @@
+{
+  "name": "butter-provider-anime",
+  "version": "1.0.0",
+  "description": "A Butter provider for anime, completable with the popcorn-api.",
+  "main": "index.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "butter-provider": "^0.3.1",
+    "butter-sanitize": "^0.1.1",
+    "debug": "^2.2.0",
+    "lodash": "^4.13.1",
+    "q": "^1.4.1",
+    "request": "^2.70.0",
+    "tape": "^4.4.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChrisAlderson/butter-provider-animes.git"
+  }
+}
