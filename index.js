@@ -141,8 +141,6 @@ AnimeApi.prototype.fetch = function (filters) {
     params.sort = filters.sorter;
   }
 
-  filters.page = 1;
-
   var index = 0;
   var url = that.apiURL[index] + 'animes/' + filters.page + '?' + querystring.stringify(params).replace(/%25%20/g, '%20');
   return get(index, url, that).then(formatFetch);
