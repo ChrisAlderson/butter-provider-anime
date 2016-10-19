@@ -4,6 +4,7 @@
   "description": "A Butter provider for anime, completable with the popcorn-api.",
   "main": "index.js",
   "scripts": {
+    "test": "node tests/basic.js"
   },
   "dependencies": {
     "butter-provider": "^0.3.1",
