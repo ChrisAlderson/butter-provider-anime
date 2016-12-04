@@ -7,13 +7,13 @@
     "test": "node tests/basic.js"
   },
   "dependencies": {
-    "butter-provider": "^0.3.1",
+    "butter-provider": "^0.5.1",
     "butter-sanitize": "^0.1.1",
-    "debug": "^2.2.0",
-    "lodash": "^4.13.1",
+    "debug": "^2.3.3",
+    "lodash": "^4.17.2",
     "q": "^1.4.1",
-    "request": "^2.70.0",
-    "tape": "^4.4.0"
+    "request": "^2.79.0",
+    "tape": "^4.6.3"
   },
   "license": "MIT",
   "repository": {
