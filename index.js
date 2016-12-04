@@ -13,9 +13,10 @@ var AnimeApi = function (args) {
 
   AnimeApi.super_.call(this);
 
-  if (args.apiURL)
+  if (args.apiURL) {
     this.apiURL = args.apiURL.split(',');
-  };
+  }
+};
 
 inherits(AnimeApi, Generic);
 
@@ -84,7 +85,7 @@ function formatDetail(anime) {
   return sanitize(result);
 };
 
-var processCloudFlareHack = function (options, url) {
+function processCloudFlareHack(options, url) {
   var req = options;
   var match = url.match(/^cloudflare\+(.*):\/\/(.*)/);
   if (match) {
