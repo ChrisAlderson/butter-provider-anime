@@ -67,6 +67,8 @@ function formatDetail(anime) {
     network: [], //FIXME
     rating: anime.rating,
     images: anime.images,
+    backdrop: anime.images.fanart,
+    poster: anime.images.poster,
     year: anime.year,
     type: anime.type
   };
