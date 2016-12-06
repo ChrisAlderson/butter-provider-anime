@@ -33,6 +33,8 @@ function formatFetch(animes) {
   var results = _.map(animes, function (anime) {
     return {
       images: anime.images,
+      backdrop: anime.images.fanart,
+      poster: anime.images.poster,
       mal_id: anime._id,
       haru_id: anime._id,
       tvdb_id: 'mal-' + anime._id,
