@@ -22,7 +22,7 @@ AnimeApi.prototype.config = {
   name: 'AnimeApi',
   uniqueId: 'mal_id',
   tabName: 'AnimeApi',
-  type: Generic.TabType.ANIME, 
+  type: Generic.TabType.ANIME,
   args: {
     apiURL: Generic.ArgType.ARRAY
 	},
@@ -159,6 +159,8 @@ AnimeApi.prototype.fetch = function (filters) {
   if (filters.sorter && filters.sorter !== 'popularity') {
     params.sort = filters.sorter;
   }
+
+  filters.page = filters.page ? filters.page : 1;
 
   var index = 0;
   var url = that.apiURL[index] + 'animes/' + filters.page + '?' + querystring.stringify(params).replace(/%25%20/g, '%20');
