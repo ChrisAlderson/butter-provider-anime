@@ -9,13 +9,11 @@ var request = require('request');
 var sanitize = require('butter-sanitize');
 
 var AnimeApi = function (args) {
-  var that = this;
+  if (!(this instanceof AnimeApi)) return new AnimeApi(args);
 
-  AnimeApi.super_.call(this);
+  Generic.call(this, args);
 
-  if (args.apiURL) {
-    this.apiURL = args.apiURL.split(',');
-  }
+  this.apiURL = this.args.apiURL || ['https://anime.api-fetch.website/'];
 };
 
 inherits(AnimeApi, Generic);
@@ -24,7 +22,10 @@ AnimeApi.prototype.config = {
   name: 'AnimeApi',
   uniqueId: 'mal_id',
   tabName: 'AnimeApi',
-  type: 'anime',
+  type: Generic.TabType.ANIME, 
+  args: {
+    apiURL: Generic.ArgType.ARRAY
+	},
   metadata: 'trakttv:anime-metadata'
 };
 
