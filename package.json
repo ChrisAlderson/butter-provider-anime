@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "A Butter provider for anime, completable with the popcorn-api.",
   "main": "index.js",
+  "butter": {
+    "timeout": 20000,
+    "testArgs": "MovieApi?&apiURL=https://anime.api-fetch.website/,cloudflare+https://anime.api-fetch.website,http://localhost:5000/"
+  },
   "scripts": {
-    "test": "node tests/basic.js"
+    "test": "tape ./node_modules/butter-test-provider/tests/*"
   },
   "dependencies": {
     "butter-provider": "^0.5.1",
