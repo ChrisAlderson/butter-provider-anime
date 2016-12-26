@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "butter-provider": "^0.5.1",
+    "butter-provider": "git+https://github.com/butterproviders/butter-provider",
     "butter-sanitize": "^0.1.1",
     "lodash": "^4.17.2",
     "q": "^1.4.1",
