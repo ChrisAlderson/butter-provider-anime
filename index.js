@@ -22,7 +22,6 @@ AnimeApi.prototype.config = {
   name: 'AnimeApi',
   uniqueId: 'mal_id',
   tabName: 'AnimeApi',
-  type: Generic.TabType.ANIME,
   args: {
     apiURL: Generic.ArgType.ARRAY
 	},
@@ -31,60 +30,64 @@ AnimeApi.prototype.config = {
 
 function formatFetch(animes) {
   var results = _.map(animes, function (anime) {
-    return {
-      images: anime.images,
-      backdrop: anime.images.fanart,
-      poster: anime.images.poster,
+    var result = {
       mal_id: anime._id,
-      haru_id: anime._id,
-      tvdb_id: 'mal-' + anime._id,
-      imdb_id: anime._id,
-      slug: anime.slug,
-      title: anime.title,
       year: anime.year,
+      title: anime.title,
+      genre: anime.genres,
+      rating: anime.rating,
+      poster: anime.images.poster,
       type: anime.type,
-      item_data: anime.type,
-      rating: anime.rating
     };
+
+    if (result.type === Generic.ItemType.TVSHOW) {
+      result = _.extend(result, {
+        num_seasons: anime.num_seasons // Not in docs
+      });
+    } else if (result.type === Generic.ItemType.MOVIE) {
+      // Do nothing
+    } else {
+      throw Error('unsupported type: \'' + anime.type + '\'!');
+    }
+
+    return result
   });
 
-  return {results: sanitize(results), hasMore: true};
+  return {
+    results: sanitize(results),
+    hasMore: true
+  };
 };
 
 function formatDetail(anime) {
   var result = {
     mal_id: anime._id,
-    haru_id: anime._id,
-    tvdb_id: 'mal-' + anime._id,
-    imdb_id: anime._id,
-    slug: anime.slug,
-    title: anime.title,
-    item_data: anime.type,
-    country: 'Japan',
-    genre: anime.genres,
-    genres: anime.genres,
-    num_seasons: 1,
-    runtime: anime.runtime,
-    status: anime.status,
-    synopsis: anime.synopsis,
-    network: [], //FIXME
-    rating: anime.rating,
-    images: anime.images,
-    backdrop: anime.images.fanart,
-    poster: anime.images.poster,
     year: anime.year,
-    type: anime.type
+    title: anime.title,
+    genre: anime.genres,
+    rating: anime.rating,
+    poster: anime.images.poster,
+    type: anime.type,
+    backdrop: anime.images.fanart,
+    subtitle: {},
+    synopsis: anime.synopsis,
+
+    runtime: anime.runtime, // Not in docs
+    status: anime.status // Not in docs
   };
 
-  if (anime.type === 'show') {
-    result = _.extend(result, {episodes: anime.episodes});
+  if (anime.type === Generic.ItemType.TVSHOW) {
+    result = _.extend(result, {
+      episodes: anime.episodes,
+      num_seasons: anime.num_seasons // Not in docs
+    });
+  } else if (anime.type === Generic.ItemType.MOVIE) {
+    result = _.extend(ret, {
+      torrents: anime.torrents,
+      trailer: anime.trailer
+    });
   } else {
-    // ret = _.extend(ret, {
-    //   cover: img,
-    //   rating: item.score,
-    //   subtitle: undefined,
-    //   torrents: movieTorrents(item.id, item.episodes)
-    // });
+    throw Error('unsupported type: \'' + anime.type + '\'!');
   }
 
   return sanitize(result);
@@ -167,6 +170,13 @@ AnimeApi.prototype.fetch = function (filters) {
   var index = 0;
   var url = that.apiURL[index] + 'animes/' + filters.page + '?' + querystring.stringify(params).replace(/%25%20/g, '%20');
   return get(index, url, that).then(formatFetch);
+};
+
+AnimeApi.prototype.random = function () {
+	var that = this;
+	var index = 0;
+	var url = that.apiURL[index] + 'random/anime';
+	return get(index, url, that).then(formatDetail);
 };
 
 AnimeApi.prototype.detail = function (torrent_id, old_data, debug) {
