@@ -5,7 +5,7 @@
   "main": "index.js",
   "butter": {
     "timeout": 20000,
-    "testArgs": "AnimeApi?&apiURL=https://anime.api-fetch.website/,cloudflare+https://anime.api-fetch.website,http://localhost:5000/"
+    "testArgs": "AnimeApi?&apiURL=http://localhost:5000/,https://anime.api-fetch.website/,cloudflare+https://anime.api-fetch.website"
   },
   "scripts": {
     "test": "tape ./node_modules/butter-provider/tests/*"
