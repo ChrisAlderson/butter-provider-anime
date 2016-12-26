@@ -8,7 +8,7 @@
     "testArgs": "AnimeApi?&apiURL=https://anime.api-fetch.website/,cloudflare+https://anime.api-fetch.website,http://localhost:5000/"
   },
   "scripts": {
-    "test": "tape ./node_modules/butter-test-provider/tests/*"
+    "test": "tape ./node_modules/butter-provider/tests/*"
   },
   "license": "MIT",
   "dependencies": {
