@@ -19,7 +19,6 @@
     "request": "^2.79.0"
   },
   "devDependencies": {
-    "butter-test-provider": "0.0.5",
     "tape": "^4.6.3"
   },
   "repository": {
