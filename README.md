@@ -1,5 +1,7 @@
 # Butter Provider Anime
 
+[![Build Status](https://travis-ci.org/ChrisAlderson/butter-provider-anime.svg?branch=master)](https://travis-ci.org/ChrisAlderson/butter-provider-anime)
+
 A Butter provider for anime, completable with the [popcorn-api](https://github.com/popcorn-official/popcorn-api).
 
 # License
