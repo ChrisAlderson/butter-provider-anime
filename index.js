@@ -32,17 +32,17 @@ function formatFetch(animes) {
   var results = _.map(animes, function (anime) {
     var result = {
       mal_id: anime._id,
-      year: anime.year,
       title: anime.title,
-      genre: anime.genres,
-      rating: anime.rating,
+      year: anime.year,
+      genres: anime.genres,
+      rating: parseInt(anime.rating.percentage, 10) / 10,
       poster: anime.images.poster,
-      type: anime.type,
+      type: anime.type
     };
 
     if (result.type === Generic.ItemType.TVSHOW) {
       result = _.extend(result, {
-        num_seasons: anime.num_seasons // Not in docs
+        num_seasons: anime.num_seasons
       });
     } else if (result.type === Generic.ItemType.MOVIE) {
       // Do nothing
@@ -50,7 +50,7 @@ function formatFetch(animes) {
       throw Error('unsupported type: \'' + anime.type + '\'!');
     }
 
-    return result
+    return result;
   });
 
   return {
@@ -62,24 +62,23 @@ function formatFetch(animes) {
 function formatDetail(anime) {
   var result = {
     mal_id: anime._id,
-    year: anime.year,
     title: anime.title,
-    genre: anime.genres,
+    year: anime.year,
+    genres: anime.genres,
     rating: anime.rating,
     poster: anime.images.poster,
     type: anime.type,
+    runtime: anime.runtime,
     backdrop: anime.images.fanart,
     subtitle: {},
-    synopsis: anime.synopsis,
-
-    runtime: anime.runtime, // Not in docs
-    status: anime.status // Not in docs
+    synopsis: anime.synopsis
   };
 
   if (anime.type === Generic.ItemType.TVSHOW) {
     result = _.extend(result, {
       episodes: anime.episodes,
-      num_seasons: anime.num_seasons // Not in docs
+      status: anime.status,
+      num_seasons: anime.num_seasons
     });
   } else if (anime.type === Generic.ItemType.MOVIE) {
     result = _.extend(ret, {
@@ -139,7 +138,7 @@ function get(index, url, that) {
 };
 
 AnimeApi.prototype.extractIds = function (items) {
-  return _.map(items.results, 'mal_id');
+  return _.map(items.results, this.config.uniqueId);
 };
 
 AnimeApi.prototype.fetch = function (filters) {
@@ -172,19 +171,19 @@ AnimeApi.prototype.fetch = function (filters) {
   return get(index, url, that).then(formatFetch);
 };
 
-AnimeApi.prototype.random = function () {
-	var that = this;
-	var index = 0;
-	var url = that.apiURL[index] + 'random/anime';
-	return get(index, url, that).then(formatDetail);
-};
-
 AnimeApi.prototype.detail = function (torrent_id, old_data, debug) {
   var that = this;
 
   var index = 0;
   var url = that.apiURL[index] + "anime/" + torrent_id;
   return get(index, url, that).then(formatDetail);
+};
+
+AnimeApi.prototype.random = function () {
+	var that = this;
+	var index = 0;
+	var url = that.apiURL[index] + 'random/anime';
+	return get(index, url, that).then(formatDetail);
 };
 
 module.exports = AnimeApi;
